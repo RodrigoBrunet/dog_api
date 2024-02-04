@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Dog` (`id` INTEGER, `imageUrl` TEXT NOT NULL, `breed` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Dog` (`id` INTEGER, `breed` TEXT NOT NULL, `referenceImageId` TEXT NOT NULL, `referenceImage` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -109,8 +109,9 @@ class _$DogDao extends DogDao {
             'Dog',
             (Dog item) => <String, Object?>{
                   'id': item.id,
-                  'imageUrl': item.imageUrl,
-                  'breed': item.breed
+                  'breed': item.breed,
+                  'referenceImageId': item.referenceImageId,
+                  'referenceImage': item.referenceImage
                 }),
         _dogDeletionAdapter = DeletionAdapter(
             database,
@@ -118,8 +119,9 @@ class _$DogDao extends DogDao {
             ['id'],
             (Dog item) => <String, Object?>{
                   'id': item.id,
-                  'imageUrl': item.imageUrl,
-                  'breed': item.breed
+                  'breed': item.breed,
+                  'referenceImageId': item.referenceImageId,
+                  'referenceImage': item.referenceImage
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -136,8 +138,8 @@ class _$DogDao extends DogDao {
   Future<List<Dog>> getAllDogs() async {
     return _queryAdapter.queryList('SELECT * FROM DOG',
         mapper: (Map<String, Object?> row) => Dog(
-            imageUrl: row['imageUrl'] as String,
             breed: row['breed'] as String,
+            referenceImageId: row['referenceImageId'] as String,
             id: row['id'] as int?));
   }
 

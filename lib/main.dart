@@ -1,5 +1,3 @@
-import 'package:dog_api/controller/api_controller.dart';
-import 'package:dog_api/data/api/data_api.dart';
 import 'package:dog_api/presenter/screens/list_dogs_screen.dart';
 import 'package:flutter/material.dart';
 

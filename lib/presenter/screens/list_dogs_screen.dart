@@ -12,43 +12,44 @@ class ListDogsScreen extends StatefulWidget {
 
 class _ListDogsScreenState extends State<ListDogsScreen> {
   ApiController apiController = ApiController();
-  List<Dog> dogList = [];
+  late Future<List<Dog>> _dogList;
 
   @override
   void initState() {
     super.initState();
-    fechAllDogData();
-  }
-
-  Future<void> fechAllDogData() async {
-    final List<Dog> data = await apiController.getListAllDogs();
-    setState(() {
-      dogList = data;
-    });
+    _dogList = apiController.getListAllDogs();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('All Dog Images and Breeds'),
+        title: const Text('Dog Breeds'),
       ),
-      body: ListView.builder(
-        itemCount: dogList.length,
-        itemBuilder: (context, index) {
-          return DogListItem(
-            dog: dogList[index],
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => DogDetailPage(
-              //       dog: dogList[index],
-              //     ),
-              //   ),
-              // );
-            },
-          );
+      body: FutureBuilder<List<Dog>>(
+        future: _dogList,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text('Error loading dog breeds'),
+            );
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(
+              child: Text('No dog breeds available'),
+            );
+          } else {
+            return ListView.separated(
+              itemCount: snapshot.data!.length,
+              separatorBuilder: (context, index) => const Divider(),
+              itemBuilder: (context, index) {
+                return DogListItem(dog: snapshot.data![index]);
+              },
+            );
+          }
         },
       ),
     );
