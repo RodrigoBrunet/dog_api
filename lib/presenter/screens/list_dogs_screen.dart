@@ -46,7 +46,7 @@ class _ListDogsScreenState extends State<ListDogsScreen> {
               itemCount: snapshot.data!.length,
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) {
-                return DogListItem(dog: snapshot.data![index]);
+                return DogListItemComponent(dog: snapshot.data![index]);
               },
             );
           }

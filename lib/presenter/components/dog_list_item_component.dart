@@ -2,16 +2,16 @@ import 'package:dog_api/data/api/data_api.dart';
 import 'package:dog_api/domain/models/dog.dart';
 import 'package:flutter/material.dart';
 
-class DogListItem extends StatefulWidget {
+class DogListItemComponent extends StatefulWidget {
   final Dog dog;
 
-  const DogListItem({super.key, required this.dog});
+  const DogListItemComponent({super.key, required this.dog});
 
   @override
-  State<DogListItem> createState() => _DogListItemState();
+  State<DogListItemComponent> createState() => _DogListItemState();
 }
 
-class _DogListItemState extends State<DogListItem> {
+class _DogListItemState extends State<DogListItemComponent> {
   DataApi dataApi = DataApi();
   late Future<String?> _referenceImage;
   @override
@@ -30,7 +30,7 @@ class _DogListItemState extends State<DogListItem> {
             future: _referenceImage,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return SizedBox(
+                return const SizedBox(
                   height: 100,
                   width: 100,
                   child: Center(
@@ -38,7 +38,7 @@ class _DogListItemState extends State<DogListItem> {
                   ),
                 );
               } else if (snapshot.hasError || snapshot.data == null) {
-                return SizedBox(
+                return const SizedBox(
                   height: 100,
                   width: 100,
                   child: Center(
@@ -46,7 +46,7 @@ class _DogListItemState extends State<DogListItem> {
                   ),
                 );
               } else {
-                return Container(
+                return SizedBox(
                   height: 100,
                   width: 100,
                   child: Image.network(
