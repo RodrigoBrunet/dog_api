@@ -9,8 +9,11 @@ class DataApi {
 
   Future<List<Dog>> getListAllDogs() async {
     final response = await http.get(Uri.parse(url));
-    final List<dynamic> data = json.decode(response.body);
-    var dogs = data.map((item) => Dog.fromJson(item)).toList();
-    return dogs;
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      return data.map((item) => Dog.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load dog images');
+    }
   }
 }
