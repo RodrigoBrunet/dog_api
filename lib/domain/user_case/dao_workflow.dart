@@ -1,9 +1,9 @@
-import 'package:dog_api/domain/models/dog.dart';
+import 'package:dog_api/domain/models/new_dog.dart';
 
 abstract class DaoWorkFlow {
-  Future<List<Dog>> getSavedDog();
+  Future<List<NewDog>> getSavedDog();
 
-  Future<void> saveDog({required Dog dog});
+  Future<void> saveDog({required NewDog dog});
 
-  Future<void> deleteDog({required Dog dog});
+  Future<void> deleteDog({required NewDog dog});
 }

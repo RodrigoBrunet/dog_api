@@ -28,7 +28,7 @@ class DataApi {
 
   Future<String?> fetchReferenceImage(String breedId) async {
     final response = await http.get(
-      Uri.parse("$urlImage$breedId"),
+      Uri.parse("$urlImageId$breedId"),
       headers: {'x-api-key': apiKey},
     );
 

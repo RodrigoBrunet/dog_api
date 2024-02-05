@@ -1,11 +1,15 @@
+import 'package:dog_api/controller/dao_controller.dart';
 import 'package:dog_api/domain/models/new_dog.dart';
+import 'package:dog_api/presenter/screens/favorite.dart';
 import 'package:dog_api/utils/constants/api.dart';
 import 'package:flutter/material.dart';
 
 class DogDetailsComponent extends StatelessWidget {
   final NewDog dog;
 
-  const DogDetailsComponent({super.key, required this.dog});
+  DogDetailsComponent({super.key, required this.dog});
+
+  final DaoController daoController = DaoController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +44,13 @@ class DogDetailsComponent extends StatelessWidget {
             width: 400,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {
-                //saveDogToDatabase(dog, database);
+              onPressed: () async {
+                await daoController.saveDog(dog: dog);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FavoriteScreen(),
+                    ));
               },
               child: const Text(
                 'Save to favorite',

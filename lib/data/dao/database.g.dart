@@ -61,7 +61,7 @@ class _$AppDatabase extends AppDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  DogDao? _dogDaoInstance;
+  NewDogDao? _newDogDaoInstance;
 
   Future<sqflite.Database> open(
     String path,
@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Dog` (`id` INTEGER, `breed` TEXT NOT NULL, `referenceImageId` TEXT NOT NULL, `referenceImage` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `NewDog` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `referenceImageId` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -94,34 +94,32 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  DogDao get dogDao {
-    return _dogDaoInstance ??= _$DogDao(database, changeListener);
+  NewDogDao get newDogDao {
+    return _newDogDaoInstance ??= _$NewDogDao(database, changeListener);
   }
 }
 
-class _$DogDao extends DogDao {
-  _$DogDao(
+class _$NewDogDao extends NewDogDao {
+  _$NewDogDao(
     this.database,
     this.changeListener,
   )   : _queryAdapter = QueryAdapter(database),
-        _dogInsertionAdapter = InsertionAdapter(
+        _newDogInsertionAdapter = InsertionAdapter(
             database,
-            'Dog',
-            (Dog item) => <String, Object?>{
+            'NewDog',
+            (NewDog item) => <String, Object?>{
                   'id': item.id,
-                  'breed': item.breed,
-                  'referenceImageId': item.referenceImageId,
-                  'referenceImage': item.referenceImage
+                  'name': item.name,
+                  'referenceImageId': item.referenceImageId
                 }),
-        _dogDeletionAdapter = DeletionAdapter(
+        _newDogDeletionAdapter = DeletionAdapter(
             database,
-            'Dog',
+            'NewDog',
             ['id'],
-            (Dog item) => <String, Object?>{
+            (NewDog item) => <String, Object?>{
                   'id': item.id,
-                  'breed': item.breed,
-                  'referenceImageId': item.referenceImageId,
-                  'referenceImage': item.referenceImage
+                  'name': item.name,
+                  'referenceImageId': item.referenceImageId
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -130,26 +128,26 @@ class _$DogDao extends DogDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<Dog> _dogInsertionAdapter;
+  final InsertionAdapter<NewDog> _newDogInsertionAdapter;
 
-  final DeletionAdapter<Dog> _dogDeletionAdapter;
+  final DeletionAdapter<NewDog> _newDogDeletionAdapter;
 
   @override
-  Future<List<Dog>> getAllDogs() async {
-    return _queryAdapter.queryList('SELECT * FROM DOG',
-        mapper: (Map<String, Object?> row) => Dog(
-            breed: row['breed'] as String,
-            referenceImageId: row['referenceImageId'] as String,
-            id: row['id'] as int?));
+  Future<List<NewDog>> getAllDogs() async {
+    return _queryAdapter.queryList('SELECT * FROM NEWDOG',
+        mapper: (Map<String, Object?> row) => NewDog(
+            id: row['id'] as int,
+            name: row['name'] as String,
+            referenceImageId: row['referenceImageId'] as String));
   }
 
   @override
-  Future<void> addDog(Dog dog) async {
-    await _dogInsertionAdapter.insert(dog, OnConflictStrategy.replace);
+  Future<void> addDog(NewDog dog) async {
+    await _newDogInsertionAdapter.insert(dog, OnConflictStrategy.replace);
   }
 
   @override
-  Future<void> removeDog(Dog dog) async {
-    await _dogDeletionAdapter.delete(dog);
+  Future<void> removeDog(NewDog dog) async {
+    await _newDogDeletionAdapter.delete(dog);
   }
 }
