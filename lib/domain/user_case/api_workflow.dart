@@ -1,5 +1,5 @@
-import 'package:dog_api/domain/models/dog.dart';
+import 'package:dog_api/domain/models/new_dog.dart';
 
 abstract class ApiWorkflow {
-  Future<List<Dog>> getListAllDogs();
+  Future<List<NewDog>> getListAllDogs();
 }

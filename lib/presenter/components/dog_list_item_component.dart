@@ -1,9 +1,9 @@
 import 'package:dog_api/data/api/data_api.dart';
-import 'package:dog_api/domain/models/dog.dart';
+import 'package:dog_api/domain/models/new_dog.dart';
 import 'package:flutter/material.dart';
 
 class DogListItemComponent extends StatefulWidget {
-  final Dog dog;
+  final NewDog dog;
 
   const DogListItemComponent({super.key, required this.dog});
 
@@ -63,7 +63,7 @@ class _DogListItemState extends State<DogListItemComponent> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  widget.dog.breed,
+                  widget.dog.name,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
