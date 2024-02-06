@@ -1,7 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dog_api/controller/dao_controller.dart';
 import 'package:dog_api/domain/models/new_dog.dart';
-import 'package:dog_api/presenter/screens/favorite.dart';
 import 'package:dog_api/utils/constants/api.dart';
+import 'package:dog_api/utils/snack_bar_message.dart';
 import 'package:flutter/material.dart';
 
 class DogDetailsComponent extends StatelessWidget {
@@ -46,11 +48,7 @@ class DogDetailsComponent extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () async {
                 await daoController.saveDog(dog: dog);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FavoriteScreen(),
-                    ));
+                SnackBarMessageSavedDataBase.showDogSavedSnackbar(context);
               },
               child: const Text(
                 'Save to favorite',
