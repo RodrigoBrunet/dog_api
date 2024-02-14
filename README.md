@@ -20,6 +20,8 @@ Principais ferramentas e bibliotecas utilizadas no desenvolvimento do projeto:
 - [Floor](https://pub.dev/packages/floor_generator): Abstração do SQlite reativa e leve.
 - [SQflite](https://pub.dev/packages/sqflite): Banco de dados local.
 - [Http](https://pub.dev/packages/http): Consumo de recursos http.
+- [Mocktail](https://pub.dev/packages/mocktail): Mock dos testes.
+- [SVG](https://pub.dev/packages/flutter_svg): Visualizar arquivos extensão .svg.
 
 ## Configuração do Ambiente de Desenvolvimento
 
