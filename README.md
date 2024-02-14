@@ -9,7 +9,7 @@ Consumo da api na url https://www.thedogapi.com/
 
 ## Descrição
 
-O projeto consiste em mostrar a imagem e raça do dog, salvar, listar e deletar do banco local, optei por favoritar para salvar os dados no banco.
+O projeto é uma adaptação a arquitetura clean dart, através do consumo de api publica e persistência de dados, foi aplicando teste unitário na camada de data, chamada http.
 
 ## Ferramentas e Dependências
 
