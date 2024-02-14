@@ -1,4 +1,4 @@
-import 'package:dog_api/presenter/screens/list_dogs_screen.dart';
+import 'package:dog_api/presenter/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,12 +10,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ListDogsScreen(),
+      home: const SplashScreen(),
     );
   }
 }
